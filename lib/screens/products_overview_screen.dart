@@ -5,21 +5,33 @@ import 'package:shop_state/widgets/products_grid.dart';
 
 enum FilterOptions { Favorites, All }
 
-class ProductsOverviewScreen extends StatelessWidget {
+class ProductsOverviewScreen extends StatefulWidget {
+  @override
+  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  var _showOnlyfavorites = false;
+
   @override
   Widget build(BuildContext context) {
-    final productsContainer = Provider.of<Products>(context, listen: false);
+    //final productsContainer = Provider.of<Products>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Hero Shop'),
         actions: <Widget>[
           PopupMenuButton(
               onSelected: (FilterOptions selectedValue) {
-                if (selectedValue == FilterOptions.Favorites) {
-                  productsContainer.showFavoritesOnly();
+                setState(() {
+                                  if (selectedValue == FilterOptions.Favorites) {
+                  //    productsContainer.showFavoritesOnly();
+                  _showOnlyfavorites = true;
                 } else {
-                  productsContainer.showAll();
-                }
+                  //    productsContainer.showAll();
+                  _showOnlyfavorites = false;
+                }  
+                                });
+              
               },
               icon: Icon(
                 Icons.more_vert,
@@ -33,7 +45,7 @@ class ProductsOverviewScreen extends StatelessWidget {
                   ]),
         ],
       ),
-      body: ProductsGrid(),
+      body: ProductsGrid(_showOnlyfavorites),
     );
   }
 }
