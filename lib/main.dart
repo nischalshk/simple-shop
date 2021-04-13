@@ -7,6 +7,7 @@ import 'package:shop_state/screens/cart_screen.dart';
 import 'package:shop_state/screens/orders_screen.dart';
 import 'package:shop_state/screens/product_detail_screen.dart';
 import 'package:shop_state/screens/products_overview_screen.dart';
+import 'package:shop_state/screens/user_products_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,13 +17,20 @@ class MyApp extends StatelessWidget {
     // return ChangeNotifierProvider(
     //   create: (ctx)=>Products(),
     // Alternate
-      //return ChangeNotifierProvider.value(value: Products(),
+    //return ChangeNotifierProvider.value(value: Products(),
 
-return MultiProvider(providers: [
-ChangeNotifierProvider(create:(ctx)=> Products(),),
-ChangeNotifierProvider(create:(ctx)=> Cart(),),
-ChangeNotifierProvider(create:(ctx)=> Orders(),),
-],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Orders(),
+        ),
+      ],
       child: MaterialApp(
           title: 'MyShop',
           theme: ThemeData(
@@ -32,15 +40,11 @@ ChangeNotifierProvider(create:(ctx)=> Orders(),),
           ),
           home: ProductsOverviewScreen(),
           routes: {
-            ProductDetailScreen.routeName: (ctx)=>ProductDetailScreen(),
-            CartScreen.routeName:(ctx)=>CartScreen(),
-            OrdersScreen.routeName:(ctx)=>OrdersScreen(),
-         
-         
-          }
-          
-          
-          ),
+            ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+            CartScreen.routeName: (ctx) => CartScreen(),
+            OrdersScreen.routeName: (ctx) => OrdersScreen(),
+            UserProductScreen.routeName: (ctx) => UserProductScreen(),
+          }),
     );
   }
 }
